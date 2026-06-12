@@ -254,5 +254,33 @@ namespace Clamity.Content.Bosses.Pyrogen.NPCs
         }
 
         public override bool CheckActive() => false;
+
+        public override void OnKill()
+        {
+            bool hasOtherMinion = false;
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                if (npc == NPC)
+                    continue;
+
+                if (npc.type == NPC.type)
+                {
+                    hasOtherMinion = true;
+                    break;
+                }
+            }
+
+            if (!hasOtherMinion)
+            {
+                if (ClamityGlobalNPC.pyrogenBoss != -1)
+                {
+                    if (Main.npc[ClamityGlobalNPC.pyrogenBoss].ai[0] == 3)
+                    {
+                        Main.npc[ClamityGlobalNPC.pyrogenBoss].ai[0] = 4;
+                        Main.npc[ClamityGlobalNPC.pyrogenBoss].ai[1] = 0;
+                    }
+                }
+            }
+        }
     }
 }
